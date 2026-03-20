@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool check(int mid, int maxOp, vector<int> &nums){
+        long long op = 0;
+        for(long long i : nums){
+            op += (i - 1)/mid;
+        }
+        return op <= maxOp;
+    }
+    int minimumSize(vector<int>& nums, int maxOperations) {
+        long long low = 1, high = 0;
+        for(long long i : nums) high = max(high, i);
+        long long ans;
+        while(low <= high){
+            long long mid = low + (high - low) / 2;
+            if(check(mid, maxOperations, nums)){
+                ans = mid;
+                high = mid - 1;
+            }
+            else low = mid + 1;
+        }
+        return ans;
+    }
+};
